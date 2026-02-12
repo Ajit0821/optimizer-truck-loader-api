@@ -3,6 +3,7 @@
 ## How to run
 
 git clone <https://github.com/Ajit0821/optimizer-truck-loader-api.git>
+
 cd truckloaderapi
 docker compose up --build
 
