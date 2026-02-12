@@ -2,6 +2,7 @@ package com.truck.controller;
 
 import com.truck.dto.Request;
 import com.truck.dto.Response;
+import com.truck.exception.BadRequestException;
 import com.truck.service.LoadService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,9 +21,22 @@ public class TruckLoadPlannerController {
 
     @PostMapping("/load-optimizer")
     public ResponseEntity<Response> optimize(@RequestBody Request request) {
-        if (request.truck == null || request.orders == null) {
-            return ResponseEntity.badRequest().build();
+        if (request == null) {
+            throw new BadRequestException("Request body cannot be null");
         }
+
+        if (request.truck == null) {
+            throw new BadRequestException("Truck details are required");
+        }
+
+        if (request.orders == null || request.orders.isEmpty()) {
+            throw new BadRequestException("At least one order is required");
+        }
+
+        if (request.orders.size() > 22) {
+            throw new BadRequestException("Maximum 22 orders allowed");
+        }
+
         return ResponseEntity.ok(
                 loadService.optimize(request.truck, request.orders)
         );
