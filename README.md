@@ -4,7 +4,7 @@
 
 git clone <https://github.com/Ajit0821/optimizer-truck-loader-api.git>
 
-cd truckloaderapi
+cd truck-loader-api
 docker compose up --build
 
 Service available at:
